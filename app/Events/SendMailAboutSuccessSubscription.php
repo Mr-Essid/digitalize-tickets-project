@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Client;
+use App\Models\ClientSubscription;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,14 +12,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMailToUserEvent
+class SendMailAboutSuccessSubscription
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public Client $client, public string $hash) {}
+    public function __construct(
+        public ClientSubscription $client_subscription,
+        public Client $current_client
+    )
+    {
+        //
+    }
 
     /**
      * Get the channels the event should broadcast on.

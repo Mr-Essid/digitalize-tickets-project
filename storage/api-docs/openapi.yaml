@@ -1,0 +1,57 @@
+openapi: 3.0.0
+paths:
+  /api/v1/client/register:
+    post:
+      operationId: 002edeed943ffcfd9f5582e0435bf4dc
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/client'
+
+                
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/client'
+        '400':
+          description: 'access forbidden'
+components:
+  schemas:
+    client:
+      properties:
+        firstname:
+          type: string
+          maxLength: 255
+          minLength: 6
+        lastname:
+          type: string
+          maxLength: 255
+          minLength: 6
+        email:
+          type: string
+          maxLength: 255
+          minLength: 6
+        appId:
+          type: string
+          maxLength: 255
+          minLength: 3
+        deviceName:
+          type: string
+          maxLength: 255
+          minLength: 3
+        password:
+          type: string
+          maxLength: 255
+          minLength: 6
+        imagePath:
+          type: string
+          maxLength: 255
+          minLength: 6
+        phoneNumber:
+          type: string
+          maxLength: 255
+          minLength: 6
+      type: object

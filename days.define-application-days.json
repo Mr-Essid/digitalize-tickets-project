@@ -1,0 +1,50 @@
+[
+    {
+        "name": "sunday" ,
+        "shortName": "sun",
+        "frenchName": "dimanche",
+        "frenchShortName" : "dim"
+    },
+{
+        "name": "monday" ,
+        "shortName": "mon",
+        "frenchName": "lundi",
+        "frenchShortName" : "lun"
+    },
+    
+{
+        "name": "tuesday" ,
+        "shortName": "tu",
+        "frenchName": "mardi",
+        "frenchShortName" : "mar"
+    },
+    
+{
+        "name": "wednesday" ,
+        "shortName": "wed",
+        "frenchName": "mercredi",
+        "frenchShortName" : "mer"
+    },
+    
+{
+        "name": "thursday" ,
+        "shortName": "thu",
+        "frenchName": "jeudi",
+        "frenchShortName" : "jeu"
+    },
+    
+{
+        "name": "friday" ,
+        "shortName": "fri",
+        "frenchName": "vendredi",
+        "frenchShortName" : "ven"
+    },
+ 
+ {
+        "name": "saturday" ,
+        "shortName": "sut",
+        "frenchName": "samedi",
+        "frenchShortName" : "sam"
+    }
+    
+]
