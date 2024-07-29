@@ -15,7 +15,8 @@ class LineResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'label' => $this->label
+            'label' => $this->label,
+            'id' => $this->id
         ];
     }
 }

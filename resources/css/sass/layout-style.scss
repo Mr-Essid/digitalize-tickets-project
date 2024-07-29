@@ -1,0 +1,101 @@
+@use 'sass:map';
+
+
+$primary: #009751;;
+$secondary:black; 
+$surface-color: #F0F0F0;
+$s-gray-color: #D9D9D9;
+
+$custom-map: (
+    "surface-color": $surface-color,
+    "s-gray-color": $s-gray-color
+);
+
+
+
+$input-color: mix(transparent, $secondary, 50%);
+
+
+$body-bg: $surface-color;
+$btn-color: white;
+$input-font-weight: bolder;
+
+
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
+
+.btn-custom-primary {
+    @include button-variant($primary, $primary, $color: white);
+}
+
+
+.btn-custom-secondary {
+    @include button-variant($secondary, $secondary, $color: white);
+}
+
+
+
+.btn-fontwight-bold {
+    font-weight: bolder;
+}
+
+
+.form-input {
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+
+
+@keyframes typing {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+
+}
+
+.typing-effect {
+    animation: typing 3s,
+    border-key 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+@keyframes border-key {
+    from, to {
+        border-right: solid transparent;
+    }
+
+    50% {
+        border-right: solid $primary;
+    }
+}
+
+
+.hover-effect {
+    a {
+        transition: margin .5s;    
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+    }
+
+    &:hover {
+        background-color: $primary;
+        color: white;
+    
+    & > * {
+        color: white;
+        margin-left: 2px;
+    }
+    }
+    
+}

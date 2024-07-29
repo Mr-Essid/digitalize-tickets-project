@@ -19,7 +19,7 @@ class SubscriptionDetail extends Model
 
 
     public function days(): BelongsToMany {
-        return $this->belongsToMany(Day::class, 'subscription_details_days', 'subscription_details_id', 'day_id');
+        return $this->belongsToMany(Day::class, 'subscription_details_days', 'subscription_details_id', 'day_id')->withPivot(['isAvailableRightNow']);
     }
 
 

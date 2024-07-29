@@ -12,7 +12,7 @@ class Line extends Model
     protected $fillable = ['label'];
 
 
-    public function SubscriptionDetails() {
+    public function subscriptionDetails() {
         return $this->belongsToMany(SubscriptionDetail::class, 'subscription_details_lines', 'line_id', 'subscription_details_id');
     } 
 }
