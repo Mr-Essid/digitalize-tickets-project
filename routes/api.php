@@ -7,6 +7,7 @@ use App\Http\Controllers\api\RegisterController as ClientRegisterContoller;
 use App\Http\Controllers\api\LoginController as ClientLoginController;
 use App\Http\Controllers\api\SubscriptionController;
 use App\Http\Controllers\api\ClientManageSubscription as SubscriptionManagement;
+use App\Http\Controllers\api\LoadCurrentUser;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ManageClientsController;
 use App\Http\Controllers\ManageSubscriptionsController;
@@ -24,6 +25,7 @@ Route::get('/subscriptions/current-client', [SubscriptionManagement::class, 'sub
 Route::get('/subscriptions/current-client/subscription/{subscription_id}', [SubscriptionManagement::class, 'index_subscription'])->middleware('auth:sanctum');
 Route::delete('/subscriptions/current-client/subscription/{subscription_id}', [SubscriptionManagement::class, 'delete_subscription'])->middleware('auth:sanctum');
 Route::apiResource('subscriptions', SubscriptionController::class)->middleware('auth:sanctum');
+Route::get('/current-client', LoadCurrentUser::class)->middleware('auth:sanctum');
 // lines fetch
 Route::get('/subscriptions/lines-available/others', [ManageSubscriptionsController::class, 'fetchLinesNotAssociatedWithSD']);
 // client search

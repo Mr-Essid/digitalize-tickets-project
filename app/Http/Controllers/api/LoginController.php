@@ -22,7 +22,7 @@ class LoginController extends Controller
             'deviceName' => 'required',
             'appId' => 'required'
         ]);
-        
+
         $username = $request->input('username');
         $current_client = Client::where('email', $username)->first();
         if ($current_client == null) {
@@ -30,24 +30,25 @@ class LoginController extends Controller
         }
 
         $password = $request->input('password');
-        
-        
-        if(!Hash::check($password, $current_client->password)) {
+
+
+        if (!Hash::check($password, $current_client->password)) {
             return response(status: 401, content: ['status' => 'request not authenticated, username or password incorrect']);
         }
 
         $device_name = $request->input('deviceName');
-        
-        if($device_name != $current_client->device_name) {
+
+        if ($device_name != $current_client->device_name) {
             return response(status: 401, content: ['status' => 'device unreachable, cannot open the app from other device']);
         }
 
         $app_id = $request->input('appId');
-         
-        if($app_id != $current_client->app_id) {
+
+        if ($app_id != $current_client->app_id) {
             return response(status: 401, content: ['status' => 'application unreachable, do you try to open the account from other device ?']);
         }
-        
-        return $current_client->createToken($current_client->device_name);
+
+        $current_client->tokens()->delete();
+        return $current_client->createToken($current_client->device_name)->plainTextToken;
     }
 }
