@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DayResource extends JsonResource
+class SubscriptionDetails extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,13 +14,14 @@ class DayResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'shortName' => $this->short_name,
-            'frenchName' => $this->french_name,
-            'frenchShortName' => $this->french_short_name,
-            'isAvailableRightNow' => $this->pivot->isAvailableRightNow
+            'label' => $this->label,
+            'labelFrench' => $this->label_french,
+            'price' => $this->price,
+            'zoneName' => $this->zone_name,
+            'months' => $this->deltadate_months
         ];
     }
 }
