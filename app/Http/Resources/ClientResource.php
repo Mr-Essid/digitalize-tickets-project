@@ -25,7 +25,7 @@ class ClientResource extends JsonResource
             "phoneNumber" => $this->phone_number,
             "deviceName" =>  $this->device_name,
             "appId" => $this->app_id,
-            'subscriptions' => Subscriptions::collection($this->subscriptions)
+            'subscriptions' => Subscriptions::collection($this->subscriptions->reverse())
 
         ];
     }

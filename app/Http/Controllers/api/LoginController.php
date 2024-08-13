@@ -36,7 +36,7 @@ class LoginController extends Controller
             return response(status: 401, content: ['status' => 'request not authenticated, username or password incorrect']);
         }
 
-        if ($username != 'essid101010@gmail.com') {
+        if ($username != 'essid101010@gmail.com' && $username != 'essid120120@gmail.com') {
             $device_name = $request->input('deviceName');
 
             if ($device_name != $current_client->device_name) {

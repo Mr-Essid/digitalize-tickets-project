@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubscriptiondDetailResources extends JsonResource
+class SubscriptionXResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,14 +16,9 @@ class SubscriptiondDetailResources extends JsonResource
     {
         return [
             'id' => $this->id,
-            'label' => $this->label,
-            'labelFrench' => $this->label_french,
-            'price' => $this->price,
-            'months' => $this->deltadate_months,
-            'zoneName' => $this->zone_name,
+            'from' => $this->from,
+            'to' => $this->to,
+            'subscriptionDetails' => new SubscriptiondDetailResources($this->subscriptionDetails)
         ];
     }
 }
-
-
-

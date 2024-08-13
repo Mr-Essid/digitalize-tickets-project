@@ -13,14 +13,9 @@ class LoadCurrentUser extends Controller
     public function __invoke(Request $request)
     {
         $current_user = Auth::user();
-        $current_user = Client::find($current_user->id);
-        $current_user->load('subscriptions.subscriptionDetails');
+        $clientWithSub = Client::find($current_user->id);
 
 
-
-        // return $current_user;
-
-
-        return new ClientResource($current_user);
+        return new ClientResource($clientWithSub);
     }
 }

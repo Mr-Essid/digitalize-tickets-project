@@ -7,6 +7,7 @@ use App\Http\Resources\DayResource;
 use App\Http\Resources\LineResource;
 use App\Http\Resources\SubscriptionAllDetailsResource;
 use App\Http\Resources\SubscriptiondDetailResources;
+use App\Http\Resources\Subscriptions;
 use App\Models\SubscriptionDetail;
 
 
