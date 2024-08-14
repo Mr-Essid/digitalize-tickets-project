@@ -7,8 +7,10 @@ use App\Http\Controllers\api\RegisterController as ClientRegisterContoller;
 use App\Http\Controllers\api\LoginController as ClientLoginController;
 use App\Http\Controllers\api\SubscriptionController;
 use App\Http\Controllers\api\ClientManageSubscription as SubscriptionManagement;
+use App\Http\Controllers\api\ForgetPasswordController;
 use App\Http\Controllers\api\LoadCurrentUser;
 use App\Http\Controllers\api\Logout;
+use App\Http\Controllers\api\ResetPassword;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ManageClientsController;
 use App\Http\Controllers\ManageSubscriptionsController;
@@ -28,6 +30,14 @@ Route::get('/subscriptions/current-client/subscription/{subscription_id}', [Subs
 Route::delete('/subscriptions/current-client/subscription/{subscription_id}', [SubscriptionManagement::class, 'delete_subscription'])->middleware('auth:sanctum');
 Route::apiResource('subscriptions', SubscriptionController::class)->middleware('auth:sanctum');
 Route::get('/current-client/disconnect', Logout::class)->middleware('auth:sanctum');
+Route::patch('/current-client/change-password', ResetPassword::class)->middleware('auth:sanctum');
+
+// forge password
+Route::post('/guest-client/forget-password', [ForgetPasswordController::class, 'getCode']);
+Route::post('/guest-client/trycode-password', [ForgetPasswordController::class, 'tryCode']);
+Route::post('/guest-client/change-password', [ForgetPasswordController::class, 'changePasswordWithPassport']);
+
+
 Route::get('/current-client', LoadCurrentUser::class)->middleware('auth:sanctum');
 
 // lines fetch
