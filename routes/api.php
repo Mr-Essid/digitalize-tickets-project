@@ -12,6 +12,7 @@ use App\Http\Controllers\api\LoadCurrentUser;
 use App\Http\Controllers\api\Logout;
 use App\Http\Controllers\api\ResetPassword;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\LineAPI;
 use App\Http\Controllers\ManageClientsController;
 use App\Http\Controllers\ManageSubscriptionsController;
 use App\Http\Middleware\MailVerifiedMiddleWare;
@@ -44,3 +45,8 @@ Route::get('/current-client', LoadCurrentUser::class)->middleware('auth:sanctum'
 Route::get('/subscriptions/lines-available/others', [ManageSubscriptionsController::class, 'fetchLinesNotAssociatedWithSD']);
 // client search
 Route::get('/search-client', [ManageClientsController::class, 'searchforclient']);
+
+
+// line api
+
+Route::get("/allowed-clients/{lineID}", LineAPI::class);

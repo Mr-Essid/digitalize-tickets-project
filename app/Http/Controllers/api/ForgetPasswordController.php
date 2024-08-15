@@ -54,7 +54,7 @@ class ForgetPasswordController extends Controller
 
 
         return [
-            'success' => 'code sent to mail successfully'
+            'status' => 'code sent to mail successfully'
         ];
     }
 
