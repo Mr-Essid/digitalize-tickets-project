@@ -78,7 +78,7 @@ class ManageSubscriptionsController extends Controller
         $id_subscription = $request->input('subscription-id');
         $keyword = $request->input('query');
 
-        $lines = SubscriptionDetail::find($id_subscription)->load('lines')->lines->map(fn ($line) => $line->id);
+        $lines = SubscriptionDetail::find($id_subscription)->load('lines')->lines->map(fn($line) => $line->id);
 
         $otherLines = Line::whereNotIn('id', $lines)->get();
 

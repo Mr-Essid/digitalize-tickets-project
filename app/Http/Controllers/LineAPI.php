@@ -16,9 +16,6 @@ class LineAPI extends Controller
     {
         $line = Line::where('label', $lineID)->first();
 
-
-
-
         if ($line == null) {
             return response(content: [
 
@@ -48,12 +45,5 @@ class LineAPI extends Controller
         }
 
         return $clientCollection;
-
-
-
-
-
-
-        $list_subscriptionsd = $line->subscriptionDetails();
     }
 }
