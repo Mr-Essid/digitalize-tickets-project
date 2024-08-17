@@ -105,7 +105,7 @@ class ManageSubscriptionsController extends Controller
         $otherLines = Line::whereNotIn(
             'id',
             $lines
-        )->get();
+        )->where('label', 'like', "$keyword%")->get();
 
         return LineResource::collection($otherLines);
     }
@@ -191,7 +191,7 @@ class ManageSubscriptionsController extends Controller
         );
 
 
-        $subscription->days()->attach(Line::all());
+        $subscription->days()->attach(Day::all());
 
         return back()->with(
             ['status' => 'Subscription Details Appended successfully']

@@ -218,8 +218,6 @@
                             id="search-line-bar" />
                         <hr>
                         <div style="height: 250px; overflow:auto; text-align: center;" id="form-container">
-
-
                         </div>
                         <hr />
                         <input type="password" class="form-control" placeholder="sudo, pass" name="password" />
@@ -261,26 +259,35 @@
 
         });
 
+
+
+
         modalDayED.addEventListener('shown.bs.modal', (event) => {
 
             console.log(document.getElementById('id-day').value);
             console.log(document.getElementById('day-status').value);
         });
 
+        modalDayED.addEventListener('hide.bs.modal', (event) => {
+            console.log(document.getElementById('id-day').value);
+
+
+            console.log(document.getElementById('day-status').value);
+        });
+
 
         let shardEventHandler = async (e) => {
+            console.log(e.target.value);
             let data = await searchForLine(e.target.value);
-
             let form_container = document.getElementById('form-container');
             form_container.innerHTML = "";
-            if (data.data.length > 0)
-                data.data.forEach(element => {
-                    form_container.innerHTML += createElementOptionLineToInnerHTML(element);
 
+            if (data.length > 0)
+                data.forEach(element => {
+                    form_container.innerHTML += createElementOptionLineToInnerHTML(element);
                 });
             else
                 form_container.innerHTML = '<strong>Zero Lines Available</strong>';
-            console.log('from event handler');
 
         }
 
@@ -292,8 +299,8 @@
             form_container.innerHTML = ""
             let data = await searchForLine('');
 
-            if (data.data.length > 0)
-                data.data.forEach(element => {
+            if (data.length > 0)
+                data.forEach(element => {
                     form_container.innerHTML += createElementOptionLineToInnerHTML(element);
 
                 });
@@ -304,10 +311,17 @@
         });
 
 
+        document.getElementById('add-line-modal').addEventListener('hidden.bs.modal', async (e) => {
+            document.getElementById('search-line-bar').value = "";
+            console.log('we are here')
+
+        });
+
 
 
 
         var searchForLine = async (keyword) => {
+            console.log(keyword)
             return fetch(
                     `/api/subscriptions/lines-available/others?query=${keyword}&subscription-id={{ $subscriptiondetail->id }}`
                 ).then(
