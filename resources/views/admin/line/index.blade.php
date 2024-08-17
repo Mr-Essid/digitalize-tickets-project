@@ -14,9 +14,10 @@
             <h3 class="s-a-title mb-0">
                 Lines Available
             </h3>
-            <a href="#" class="btn btn-outline-primary fw-bold special" id="add-subscription">
+            <button data-bs-target="#add-line-modal" data-bs-toggle="modal" class="btn btn-outline-primary fw-bold special"
+                id="add-subscription">
                 now line
-            </a>
+            </button>
         </div>
 
 
@@ -59,6 +60,34 @@
         </table>
 
     </div>
+
+
+
+    <div class="modal fade" tabindex="-1" id="add-line-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Line</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+
+                    <div class="modal-body">
+                        <input type="text" name="lineLabel" class="form-control mb-2" placeholder="label">
+                        <input type="text" name="password" class="form-control" placeholder="sudo, pass">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
 @endsection
 
 

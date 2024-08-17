@@ -19,7 +19,10 @@ class ManageSubscriptionsController extends Controller
     public function index()
     {
         $subscriptionsavailable = SubscriptionDetail::all();
-        return view('admin.subscription.index', compact('subscriptionsavailable'));
+        return view(
+            'admin.subscription.index',
+            compact('subscriptionsavailable')
+        );
     }
 
 
@@ -32,11 +35,20 @@ class ManageSubscriptionsController extends Controller
         }
 
 
-        $subscriptiondetail->load(['lines', 'days']);
+        $subscriptiondetail->load([
+            'lines',
+            'days'
+        ]);
 
         $lines = Line::all();
 
-        return view('admin.subscription.show', compact(['subscriptiondetail', 'lines']));
+        return view(
+            'admin.subscription.show',
+            compact([
+                'subscriptiondetail',
+                'lines'
+            ])
+        );
     }
 
     public function toggleday(Request $request)
@@ -45,14 +57,21 @@ class ManageSubscriptionsController extends Controller
 
         $request->validate([
             'dayId' => 'required|int',
-            'dayStatus' => 'required|int|in:0,1',
+
+            'dayStatus' => 'required|int|in:0,
+1',
+
             'password' => 'required',
+
             'subscriptionDetailId' => 'required|int'
         ]);
 
         $current_admin = Auth::user();
 
-        if (!Hash::check($request->input('password'), $current_admin->password)) {
+        if (!Hash::check(
+            $request->input('password'),
+            $current_admin->password
+        )) {
             return back()->withErrors(
                 ['x-authorization' => 'password incorrect']
             );
@@ -67,7 +86,10 @@ class ManageSubscriptionsController extends Controller
                 ]
             );
         }
-        $res = $sub->days()->updateExistingPivot($request->input('dayId'), ['isAvailableRightNow' => $request->input('dayStatus')]);
+        $res = $sub->days()->updateExistingPivot(
+            $request->input('dayId'),
+            ['isAvailableRightNow' => $request->input('dayStatus')]
+        );
 
         return back()->with(['success' => 'opration performed successfuly']);
     }
@@ -80,18 +102,24 @@ class ManageSubscriptionsController extends Controller
 
         $lines = SubscriptionDetail::find($id_subscription)->load('lines')->lines->map(fn($line) => $line->id);
 
-        $otherLines = Line::whereNotIn('id', $lines)->get();
+        $otherLines = Line::whereNotIn(
+            'id',
+            $lines
+        )->get();
 
         return LineResource::collection($otherLines);
     }
 
 
-    public function addLineToSubscriptionDetail(Request $request, $subscription_id)
-    {
+    public function addLineToSubscriptionDetail(
+        Request $request,
+        $subscription_id
+    ) {
 
         $request->validate(
             [
                 'password' => 'required',
+
                 'lines' => 'required'
             ]
         );
@@ -100,7 +128,10 @@ class ManageSubscriptionsController extends Controller
 
         $current_admin = Auth::user();
 
-        if (!Hash::check($request->input('password'), $current_admin->password)) {
+        if (!Hash::check(
+            $request->input('password'),
+            $current_admin->password
+        )) {
             return back()->withErrors([
                 'authorization' => 'password incorrect'
             ]);
@@ -122,5 +153,107 @@ class ManageSubscriptionsController extends Controller
         return back()->with(
             ['success' => 'action perfomed successfully']
         );
+    }
+
+
+    function addSubscriptionShow()
+    {
+        return view('admin.subscription.subscription-details');
+    }
+
+
+    public function storeSubscriptionDetails(Request $request)
+    {
+
+        $request->validate(
+            [
+                'zoneName' => 'required|max:255',
+                'months' => 'required|int',
+                'price' => 'required',
+                'label' => 'required|string|max:255',
+                'label_french' => 'required|string|max:255'
+
+            ]
+        );
+
+
+        $current_admin = Auth::user();
+
+
+        $subscription =  SubscriptionDetail::create(
+            [
+                'label' => $request->input('label'),
+                'label_french' => $request->input('label_french'),
+                'price' => $request->input('price'),
+                'zone_name' => $request->input('zoneName'),
+                'deltadate_months' => $request->input('months')
+            ]
+        );
+
+
+        $subscription->days()->attach(Line::all());
+
+        return back()->with(
+            ['status' => 'Subscription Details Appended successfully']
+        );
+    }
+
+
+
+    public function updateSubscription(Request $request)
+    {
+
+        $request->validate(
+            [
+                'password' => 'required',
+                'zoneName' => 'required|max:255',
+                'months' => 'required|int',
+                'price' => 'required|double',
+                'label' => 'required|string|max:255',
+                'label_french' => 'required|string|max:255',
+                'id' => 'required|int'
+            ]
+        );
+
+
+        $current_admin = Auth::user();
+
+        if (!Hash::check(
+            $request->input('password'),
+            $current_admin->password
+        )) {
+            return back()->withErrors([
+                'status' => 'password incorrect'
+            ]);
+        }
+
+        $res = SubscriptionDetail::where(
+            'id',
+            $request->input('id')
+        )->update(
+            [
+                'label' => $request->input("label"),
+
+                'label_french' => $request->input("labelFrench"),
+
+                'price' => $request->input("price"),
+
+                'zone_name' => $request->input("zoneName"),
+
+                'deltadate_months' => $request->input("months")
+            ]
+
+        );
+
+        if (!$res) {
+            return back()->withError(
+                ['status' => 'Current Subscription Not Available, Please make sure you have not Broke same things, in case call our technical staff']
+            );
+        } else {
+
+            return back()->with(
+                ['status' => 'Subscription Details Updated successfully']
+            );
+        }
     }
 }

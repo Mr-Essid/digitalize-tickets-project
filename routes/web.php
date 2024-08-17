@@ -30,4 +30,10 @@ Route::prefix('/admin')->group(function () {
     Route::post('/current-admin/subscription/day', [ManageSubscriptionsController::class, 'toggleday'])->name('subscription.toggleday')->middleware('auth');
     // add line to subscription details
     Route::post('/current-admin/subscription/line-add/{subscription_id}', [ManageSubscriptionsController::class, 'addLineToSubscriptionDetail'])->name('subscription.addline')->middleware('auth');
+
+
+    // subscription related actions (add, update)
+    Route::get('/current-admin/subscription-form', [ManageSubscriptionsController::class, 'addSubscriptionShow'])->name('subscription.add.show')->middleware('auth');
+
+    Route::post('/current-admin/subscription-store', [ManageSubscriptionsController::class, 'storeSubscriptionDetails'])->name('subscription.add.store')->middleware('auth');
 });

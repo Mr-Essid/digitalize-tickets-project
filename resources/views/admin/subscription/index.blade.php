@@ -17,7 +17,8 @@
             <h3 class="s-a-title mb-0">
                 Subscriptions Available
             </h3>
-            <a href="#" class="btn btn-outline-primary fw-bold special" id="add-subscription">
+            <a href="{{ route('subscription.add.show') }}" class="btn btn-outline-primary fw-bold special"
+                id="add-subscription">
                 now subscription
             </a>
         </div>
