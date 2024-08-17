@@ -21,6 +21,26 @@
         </div>
 
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session()->get('status'))
+            <p class="alert alert-info">
+                subscription details stored successfully
+            </p>
+        @endif
+
+
+
+
+
         <hr>
         <table class="table align-middel text-capitalize" style="text-align: center">
             <thead>
@@ -70,11 +90,12 @@
                     <h5 class="modal-title">Add Line</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="post">
+                <form action="{{ route('line.add.store') }}" method="post">
 
+                    @csrf
                     <div class="modal-body">
                         <input type="text" name="lineLabel" class="form-control mb-2" placeholder="label">
-                        <input type="text" name="password" class="form-control" placeholder="sudo, pass">
+                        <input type="password" name="password" class="form-control" placeholder="sudo, pass">
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -26,15 +26,15 @@ class ManageLinesController extends Controller
 
 
         $request->validate([
-            'label' => 'required|max:50',
+            'lineLabel' => 'required|max:50',
             'password' => 'required'
         ]);
 
-        if (!Hash::check($request, $admin->password)) {
+        if (!Hash::check($request->input('password'), $admin->password)) {
             return back()->withErrors(["status" => "password incorrect"]);
         }
 
-        Line::create(['label' => $request->input('label')]);
+        Line::create(['label' => $request->input('lineLabel')]);
 
         return back()->with(["status" => "line appended successfully"]);
     }

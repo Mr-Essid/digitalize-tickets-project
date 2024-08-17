@@ -36,4 +36,8 @@ Route::prefix('/admin')->group(function () {
     Route::get('/current-admin/subscription-form', [ManageSubscriptionsController::class, 'addSubscriptionShow'])->name('subscription.add.show')->middleware('auth');
 
     Route::post('/current-admin/subscription-store', [ManageSubscriptionsController::class, 'storeSubscriptionDetails'])->name('subscription.add.store')->middleware('auth');
+
+
+    // line related actions
+    Route::post('/current-admin/line-store', [ManageLinesController::class, 'addLine'])->name('line.add.store')->middleware('auth');
 });
