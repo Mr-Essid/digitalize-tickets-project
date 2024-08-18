@@ -72,7 +72,9 @@
                             {{ $line->created_at->toDateString() }}
                         </td>
                         <td>
-                            <a href="#" class="btn btn-danger"> delete </a>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-line-modal"
+                                data-bs-lineid="{{ $line->id }}">
+                                delete </button>
                         </td>
                     </tr>
                 @endforeach
@@ -108,10 +110,45 @@
 
 
 
+    <div class="modal fade" tabindex="-1" id="delete-line-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Line</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        are you sure you wanna <b>delete</b> this line
+                    </p>
+                    <form action="{{ route('line.delete') }}" method="post">
+                        @csrf
+                        <div>
+                            <input type="hidden" name="lineId" class="form-control mb-2" placeholder="label"
+                                id="line-id">
+                            <input type="password" name="password" class="form-control" placeholder="sudo, pass">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
 
 @section('script')
+
+    <script>
+        document.getElementById("delete-line-modal").addEventListener('show.bs.modal', (e) => {
+            document.getElementById("line-id").value = e.relatedTarget.getAttribute("data-bs-lineid")
+        })
+    </script>
 
 @endsection

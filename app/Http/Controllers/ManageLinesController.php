@@ -75,18 +75,18 @@ class ManageLinesController extends Controller
         $admin = Auth::user();
 
         $request->validate([
-            'id' => 'required|int',
+            'lineId' => 'required|int',
             'password' => 'required'
         ]);
 
-        if (!Hash::check($request, $admin->password)) {
+        if (!Hash::check($request->input('password'), $admin->password)) {
             return back()->withErrors(["status" => "password incorrect"]);
         }
 
-        $line = Line::find($request->input('id'));
+        $line = Line::find($request->input('lineId'));
 
         if ($line == null) {
-            return back()->withErrors(["same things went wrong"]);
+            return back()->withErrors(["line not exists"]);
         }
 
         $line->delete();

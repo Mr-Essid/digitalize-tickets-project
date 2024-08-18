@@ -40,4 +40,6 @@ Route::prefix('/admin')->group(function () {
 
     // line related actions
     Route::post('/current-admin/line-store', [ManageLinesController::class, 'addLine'])->name('line.add.store')->middleware('auth');
+    Route::post('/current-admin/subscription-disable-line', [ManageSubscriptionsController::class, 'disableLineFromSubscription'])->name('subscription.line.disable')->middleware('auth');
+    Route::post('/current-admin/line-delete', [ManageLinesController::class, 'deleteLine'])->name('line.delete')->middleware('auth');
 });

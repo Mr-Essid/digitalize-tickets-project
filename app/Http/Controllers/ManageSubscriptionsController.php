@@ -6,10 +6,7 @@ use App\Http\Resources\LineResource;
 use App\Models\Day;
 use App\Models\Line;
 use App\Models\SubscriptionDetail;
-use App\Models\SubscriptionDetailsLine;
-use Database\Factories\SubscriptionDetailLineFactory;
-use Doctrine\Common\Annotations\Annotation\Required;
-use Dotenv\Parser\Lines;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -57,12 +54,8 @@ class ManageSubscriptionsController extends Controller
 
         $request->validate([
             'dayId' => 'required|int',
-
-            'dayStatus' => 'required|int|in:0,
-1',
-
+            'dayStatus' => 'required|int|in:0,1',
             'password' => 'required',
-
             'subscriptionDetailId' => 'required|int'
         ]);
 
@@ -119,7 +112,6 @@ class ManageSubscriptionsController extends Controller
         $request->validate(
             [
                 'password' => 'required',
-
                 'lines' => 'required'
             ]
         );
@@ -151,7 +143,7 @@ class ManageSubscriptionsController extends Controller
         $sub->lines()->attach($request->input('lines'));
 
         return back()->with(
-            ['success' => 'action perfomed successfully']
+            ['status' => 'line added with success status']
         );
     }
 
@@ -175,7 +167,6 @@ class ManageSubscriptionsController extends Controller
 
             ]
         );
-
 
         $current_admin = Auth::user();
 
@@ -233,13 +224,9 @@ class ManageSubscriptionsController extends Controller
         )->update(
             [
                 'label' => $request->input("label"),
-
                 'label_french' => $request->input("labelFrench"),
-
                 'price' => $request->input("price"),
-
                 'zone_name' => $request->input("zoneName"),
-
                 'deltadate_months' => $request->input("months")
             ]
 
@@ -255,5 +242,56 @@ class ManageSubscriptionsController extends Controller
                 ['status' => 'Subscription Details Updated successfully']
             );
         }
+    }
+
+    function disableLineFromSubscription(Request $request)
+    {
+
+
+
+        // yoo it's not get request and thankes!!!
+
+
+
+        $request->validate([
+            'subscriptionDetailId' => 'required|int',
+            'lineId' => 'required|int',
+            'password' => 'required'
+        ]);
+
+
+        $admin = Auth::user();
+
+
+        if (!Hash::check($request->input('password'), $admin->password)) {
+            return back()->withErrors([
+                'status' => 'password not correct, check your password'
+            ]);
+        }
+
+
+        $subscription_id = $request->input('subscriptionDetailId');
+        $lineId = $request->input('lineId');
+
+        $is_detatched = 0;
+        try {
+            $is_detatched = SubscriptionDetail::findOrFail($subscription_id)->lines()->detach($lineId);
+        } catch (ModelNotFoundException $e) {
+
+            return back()->withErrors([
+                'status' => "subscription with id $subscription_id not found"
+            ]);
+        }
+
+
+        if ($is_detatched)
+            return back()->with([
+                'status' => 'line disabled successfully'
+            ]);
+
+        else
+            return back()->withErrors([
+                'status' => 'wrong ressource to there is not line associated with this subscription'
+            ]);
     }
 }

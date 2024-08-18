@@ -24,9 +24,9 @@
                 </div>
             @endif
 
-            @if (session()->get('success'))
+            @if (session()->get('status'))
                 <p class="alert alert-info">
-                    opration success
+                    {{ session()->get('status') }}
                 </p>
             @endif
         </div>
@@ -160,7 +160,9 @@
                                 {{ $line->label }}
                             </td>
                             <td>
-                                <button class="btn btn-outline-primary text-capitalize">disable</button>
+                                <button class="btn btn-outline-primary text-capitalize"
+                                    data-bs-lineid="{{ $line->id }}" data-bs-toggle="modal"
+                                    data-bs-target="#disableLineButton">disable</button>
                             </td>
                         </tr>
                     @endforeach
@@ -188,6 +190,38 @@
                         <input type="password" placeholder="sudo, pass" class="form-control" name="password" />
                         <input type="hidden" name="dayId" id="id-day" />
                         <input type="hidden" name="dayStatus" id="day-status" />
+                        <input type="hidden" name="subscriptionDetailId" value="{{ $subscriptiondetail->id }}" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary text-white">Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="disableLineButton" tabindex="-1" aria-labelledby="disableLineButton"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('subscription.line.disable') }}" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="disable-line-header"> Disable line</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-capitalize">
+                        <small id="content-DE" class="load">
+                            disable the line for current subscription details
+                        </small>
+                        <hr />
+                        @csrf
+                        <input type="password" placeholder="sudo, pass" class="form-control" name="password" />
+                        <input type="hidden" name="lineId" id="id-line" />
                         <input type="hidden" name="subscriptionDetailId" value="{{ $subscriptiondetail->id }}" />
 
                     </div>
@@ -342,6 +376,14 @@
         </div>
         `
         }
+
+
+
+        document.getElementById('disableLineButton').addEventListener('show.bs.modal', (e) => {
+            let lineId = e.relatedTarget.getAttribute("data-bs-lineid")
+            document.getElementById('id-line').value = lineId;
+
+        })
     </script>
 
 @endsection
