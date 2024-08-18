@@ -39,7 +39,8 @@
 
         <div class="bottom-section p-3">
 
-            <a class="row align-items-center link-underline link-underline-opacity-0" href="#">
+            <a class="row align-items-center link-underline link-underline-opacity-0"
+                href="{{ route('admin.logout') }}">
                 <div class="col-2">
                     <img src="{{ asset('storage/images/logout.png') }}" style="max-width: 100%" alt="logout-icon">
                 </div>

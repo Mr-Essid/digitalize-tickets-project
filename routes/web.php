@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DisconnectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\LoginController;
@@ -23,6 +24,7 @@ Route::prefix('/admin')->group(function () {
         return 'this is other enpoint authenticated';
     })->middleware('auth');
     Route::get('/current-admin/client', [ManageClientsController::class, 'clientdetails'])->name('admin.clientdetails')->middleware('auth');
+    Route::get('/current-admin/logout', DisconnectController::class)->name('admin.logout')->middleware('auth');
     Route::post('/current-admin/client/wallet-growth', [ManageClientsController::class, 'addtowallet'])->name('addtowallet')->middleware('auth');
     Route::get('/current-admin/subscriptions', [ManageSubscriptionsController::class, 'index'])->name('subscription.index')->middleware('auth');
     Route::get('/current-admin/lines', [ManageLinesController::class, 'index'])->name('line.index')->middleware('auth');

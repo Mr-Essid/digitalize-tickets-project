@@ -9,7 +9,7 @@
         <h2 class="load fw-blod">
 
 
-            {{ date('D y M') }}
+            {{ date('D M Y') }}
 
         </h2>
 
