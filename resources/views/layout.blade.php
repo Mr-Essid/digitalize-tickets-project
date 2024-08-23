@@ -8,8 +8,8 @@
     <title>@yield('title')</title>
     @yield('style')
 
-    @vite(['resources/css/sass/layout-style.scss', 'resources/js/app.js'])
-
+    <link rel="stylesheet" href="{{ asset('/build/assets/layout-style-qopEgKEL.css') }}">
+    <script type="module" defer src="{{ asset('/build/assets/app-BrdkcW99.js') }}"></script>
 
 </head>
 

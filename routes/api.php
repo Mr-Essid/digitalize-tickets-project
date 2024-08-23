@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\CheckTokenValidityController;
 use App\Http\Controllers\api\ClientSubscribeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +47,6 @@ Route::get('/subscriptions/lines-available/others', [ManageSubscriptionsControll
 // client search
 Route::get('/search-client', [ManageClientsController::class, 'searchforclient']);
 
-
+Route::get('/guest-client/check-token', CheckTokenValidityController::class)->middleware("auth:sanctum");
 // line api
-
 Route::get("/allowed-clients/{lineID}", LineAPI::class);

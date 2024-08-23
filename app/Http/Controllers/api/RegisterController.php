@@ -5,8 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Events\SendMailToUserEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\v1\RegisterRequest;
-use App\Http\Resources\clientResource;
-use Illuminate\Http\Request;
+use App\Http\Resources\ClientResource;
 use OpenApi\Attributes as OA;
 use App\Models\Client;
 use Faker\Core\Uuid;
@@ -22,9 +21,7 @@ use OpenApi\Annotations\RequestBody;
 use OpenApi\Attributes\RequestBody as AttributesRequestBody;
 
 #[OA\Info(title: "My First API", version: "0.1")]
-class OpenApi
-{
-}
+class OpenApi {}
 
 
 class RegisterController extends Controller

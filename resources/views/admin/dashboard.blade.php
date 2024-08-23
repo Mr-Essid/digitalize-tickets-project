@@ -1,9 +1,5 @@
 @extends('layout')
 
-@section('style')
-    @vite(['resources/css/sass/dashboard-style.scss'])
-@endsection
-
 
 @section('title', 'GoDigital - Dashbaord')
 @section('content')

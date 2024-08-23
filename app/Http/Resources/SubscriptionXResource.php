@@ -18,7 +18,7 @@ class SubscriptionXResource extends JsonResource
             'id' => $this->id,
             'from' => $this->from,
             'to' => $this->to,
-            'subscriptionDetails' => new SubscriptiondDetailResources($this->subscriptionDetails)
+            'subscriptionDetails' => new SubscriptionAllDetailsResource($this->subscriptionDetails)
         ];
     }
 }
