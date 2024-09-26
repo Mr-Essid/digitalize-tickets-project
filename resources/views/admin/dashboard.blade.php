@@ -1,6 +1,5 @@
 @extends('layout')
 
-
 @section('title', 'GoDigital - Dashbaord')
 @section('content')
 
